@@ -27,15 +27,18 @@ employee2.head()
 
 #combine the two dataframes
 employee_all = employee1.append(employee2)
-employee_all
+employee_all.head()
 
-#rename Name column
-employee_all.rename(columns = {'Name':'First Name'}, inplace = True)
+# split the 'Name' column into two sepate columns and split the information
+employee_all["First Name"]=employee_all['Name'].str.split(' ',1).str[0]
+employee_all["Last Name"]=employee_all['Name'].str.split(' ',1).str[1]
 
-employee_all.columns
-
-#add new column for Last Name
-employee_all['Last Name'] = 'Brown'
+# remove the redundant 'Name' column
+del employee_all["Name"]
+employee_all.head()
 
 #reorder the columns
 employee_final=employee_all[['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State']]
+
+#format the 'SSN' column
+employee_final.replace()
